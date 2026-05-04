@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argentina Biweekly Newsletter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<style>
+  :root { --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --accent: #2563eb; --accent-hover: #1d4ed8; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 48px 20px; text-align: center; border-radius: 16px; margin-bottom: 32px; }
+  .header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .header .subtitle { font-size: 1.1rem; opacity: 0.8; font-weight: 400; }
+  .header .date-range { font-size: 0.9rem; opacity: 0.6; margin-top: 12px; }
+
+  /* TOC */
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .toc-link { background: var(--card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; text-decoration: none; color: var(--text); font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+  .toc-link:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+  /* Section */
+  .news-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .news-section h2 { font-size: 1.4rem; font-weight: 700; color: #1e293b; border-bottom: 3px solid var(--accent); padding-bottom: 10px; margin-bottom: 20px; display: inline-block; }
+  .news-section h3 { font-size: 1.1rem; font-weight: 600; color: #475569; margin: 20px 0 12px; }
+  .news-section p { margin-bottom: 12px; color: #475569; }
+  .news-section ul { list-style: none; padding: 0; }
+  .news-section li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .news-section li:last-child { border-bottom: none; }
+  .news-section li strong { color: var(--accent); }
+  .news-section em { color: var(--muted); font-style: italic; }
+
+  /* Source stats */
+  .source-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .source-table th { background: #f1f5f9; padding: 10px; text-align: left; font-weight: 600; color: #475569; }
+  .source-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .source-table tr:hover { background: #f8fafc; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 32px 20px; color: var(--muted); font-size: 0.85rem; }
+
+  /* Edit mode */
+  #edit-bar { display: none; position: fixed; top: 0; left: 0; right: 0; background: #1e293b; color: white; padding: 10px 20px; z-index: 1000; display: flex; align-items: center; gap: 12px; font-size: 0.9rem; }
+  #edit-bar button { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+  #edit-bar button:hover { background: rgba(255,255,255,0.15); }
+  #edit-bar button.publish-btn { background: #10b981; border-color: #10b981; font-weight: 600; }
+  #edit-bar button.publish-btn:hover { background: #059669; }
+  .editable [contenteditable="true"]:hover { outline: 2px dashed #93c5fd; outline-offset: 2px; border-radius: 4px; }
+  .editable [contenteditable="true"]:focus { outline: 2px solid #3b82f6; outline-offset: 2px; border-radius: 4px; }
+
+  /* Lock button */
+  #lock-btn { position: fixed; bottom: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #1e293b; color: white; border: none; cursor: pointer; font-size: 1.1rem; z-index: 1001; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s; }
+  #lock-btn:hover { background: #334155; transform: scale(1.05); }
+  #lock-btn.unlocked { background: #10b981; }
+
+  /* Modal */
+  .pw-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
+  .pw-modal.show { display: flex; }
+  .pw-modal .dialog { background: white; border-radius: 12px; padding: 32px; width: 360px; max-width: 90vw; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .pw-modal .dialog h3 { font-size: 1.2rem; margin-bottom: 16px; }
+  .pw-modal .dialog input { width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; outline: none; }
+  .pw-modal .dialog input:focus { border-color: var(--accent); }
+  .pw-modal .dialog .btns { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+  .pw-modal .dialog button { padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+  .pw-modal .dialog .btn-cancel { background: #f1f5f9; color: #475569; }
+  .pw-modal .dialog .btn-submit { background: var(--accent); color: white; }
+  .pw-modal .dialog .error { color: #ef4444; font-size: 0.85rem; margin-top: 8px; display: none; }
+
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .header { padding: 32px 16px; }
+    .header h1 { font-size: 1.5rem; }
+    .news-section { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Argentina Biweekly Newsletter</h1>
+    <div class="subtitle">Fintech & Macro Intelligence</div>
+    <div class="date-range">April 20 – May 04, 2026</div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <a href="#macro-policy" class="toc-link">Macro & Policy</a>
+<a href="#financial-markets" class="toc-link">Financial Markets</a>
+<a href="#international-impact" class="toc-link">International Impact</a>
+<a href="#fintech-innovation" class="toc-link">Fintech & Innovation</a>
+
+  </nav>
+
+  <!-- News Sections -->
+  <section id="macro-policy" class="news-section">
+<h2>Macro & Policy</h2>
+<h3>Key Developments</h3>
+<p>The government is attempting to regain political initiative by reinstating Cabinet Chief Adorni’s daily press briefings and pushing a legislative agenda, while the economy shows a fragile two-speed recovery. The BCRA bought over USD 7 billion in the first four months, but inflation remains stubbornly high, and household financial stress is deepening, with morosidad (delinquency) surpassing pandemic levels.</p>
+<h3>Top Stories</h3>
+<ul>
+<li><strong>El Gobierno apuesta a recuperar iniciativa con las conferencias de Adorni y la agenda legislativa</strong>: The Casa Rosada views Adorni’s congressional appearance as a turning point and is betting on daily press briefings to regain the narrative. [LA NACION]</li>
+<li><strong>El peso argentino vive su mejor cuatrimestre en décadas, pero la fiesta tiene fecha de vencimiento</strong>: A record harvest, Patagonian oil, and corporate debt drove a 4.9% nominal appreciation, while the BCRA bought USD 7,000 million. However, inflation of 9.4% in Q1 suggests the rally is unsustainable. [Ambito]</li>
+<li><strong>Al 90% de los hogares le quedan menos de $60.000 diarios tras cubrir gastos fijos</strong>: Disposable income fell from 53% of household budgets in 2015 to 36% in February, driven by rising housing, utilities, and transport costs. [Ambito]</li>
+<li><strong>Un estudio de la UBA advierte que la morosidad de las familias ya supera los niveles de la pandemia</strong>: Consumer credit has grown 57% since Milei took office, with credit card use surging to cover basic purchases. [Ambito]</li>
+<li><strong>Federico Sturzenegger confirmó que en junio enviará la desregulación inmobiliaria al Congreso</strong>: The minister aims to cut real estate transaction costs by challenging the role of real estate boards and deregulating the sector. [LA NACION]</li>
+<li><strong>Luis Caputo destacó el impacto del acuerdo con la UE en exportaciones e inversiones</strong>: The Mercosur-EU agreement, now in force, eliminates tariffs on 90% of trade and covers 30% of global GDP, boosting Argentina’s export and investment prospects. [Ambito]</li>
+<li><strong>Solo en Off | El funcionario libertario que debió asimilar la agenda woke de un país europeo</strong>: A behind-the-scenes look at internal tensions, including Carrió’s videos scaring off advisors and Milei’s invitation to London. [LA NACION]</li>
+</ul></section>
+<section id="financial-markets" class="news-section">
+<h2>Financial Markets</h2>
+<h3>Key Developments</h3>
+<p>The Argentine peso remains stable across official and parallel markets, with the blue dollar steady near ARS 1,200. However, a significant ARS 6.9 trillion debt maturity wall in May is testing the Treasury’s rollover strategy, while rising delinquency in Greater Buenos Aires—quadrupling in the past year—signals growing consumer stress despite official claims the peak has passed.</p>
+<h3>Top Stories</h3>
+<ul>
+<li><strong>Deuda: Economía enfrenta vencimientos por $6,9 billones en mayo y seguirá con la política de estirar plazos</strong>: The Treasury faces ARS 6.9 trillion in maturities this month and aims for rollover rates above 100%, with hard dollar placements already exceeding USD 2.25 billion. [Ambito - Finanzas]</li>
+<li><strong>Morosidad: alerta por el nivel del GBA, mientras que el BCRA y los bancos aseguran que el pico ya pasó</strong>: Non-performing loans in Greater Buenos Aires have quadrupled year-on-year, per BCRA data, though authorities and banks argue the worst is over. [Ambito - Finanzas]</li>
+<li><strong>Dólar blue hoy: a cuánto opera este lunes 4 de mayo</strong>: The blue dollar traded at ARS 1,195 for buying and ARS 1,215 for selling, with the official rate at ARS 1,050. MEP and CCL rates hovered near ARS 1,180 and ARS 1,220, respectively. [Ambito - Finanzas]</li>
+<li><strong>Mientras el mercado ya mira el 2027, llegan 15 balances de empresas argentinas: los datos clave a seguir en la semana</strong>: Investors are shifting focus to 2027, demanding higher yields on 2028 bonds as 15 corporate earnings reports this week will reveal the impact of slowing activity, inflation, and wages. [Ambito - Finanzas]</li>
+<li><strong>Mercado de capitales: más comitentes, nuevos instrumentos y el impulso de las nuevas generaciones</strong>: The capital markets see rising account openings and new instruments, with younger demographics channeling savings into productive investments. [Ambito - Finanzas]</li>
+<li><strong>Cambios en los pagos digitales: cómo deben adecuarse las fintech a la nueva norma del BCRA</strong>: New BCRA regulations require fintechs operating digital payment services to comply with formal legal frameworks, ending previous regulatory gray areas. [Ambito - Finanzas]</li>
+</ul></section>
+<section id="international-impact" class="news-section">
+<h2>International Impact</h2>
+<h3>Key Developments</h3>
+<p>Argentina’s external debt hit a record $483 billion, with short-term maturities quadrupling, as the government executed a $819 million SDR purchase from the U.S. Treasury to service IMF interest payments. While Wall Street remains cautiously optimistic about Milei’s program, a key negotiator warns the debt is now less repayable, and a top official resigned after plans to return to capital markets were shelved. The economy recorded its sharpest monthly contraction under Milei, adding to fiscal strain.</p>
+<h3>Top Stories</h3>
+<ul>
+<li><strong>Argentina’s External Debt Hits Record $483 Billion, Short-Term Maturities Quadruple</strong>: Total debt surpassed $483 billion, with short-term obligations multiplying by four, raising refinancing risks for the national government. [La Política Online, NEA HOY]</li>
+<li><strong>Government Buys $819 Million in SDRs from U.S. Treasury to Pay IMF Interest</strong>: The operation, conducted via the U.S. Treasury, allowed Argentina to cover over $800 million in interest payments to the IMF, marking a continued reliance on bilateral support. [Infobae, La Nación, Ambito]</li>
+<li><strong>Ex-IMF Director: Market Access Key to Resolving Argentina’s Debt; Official Resigns After Return to Markets Shelved</strong>: A former IMF director stressed that regaining market access is critical, but a top Argentine official resigned after plans to tap international markets were postponed, signaling internal friction. [Bloomberg Línea, Buenos Aires Times]</li>
+<li><strong>Wall Street Eyes Milei’s Program with Enthusiasm but Doubts for 2027</strong>: Investors are optimistic about fiscal reforms but worry about sustainability beyond 2026, especially with a $1 billion IMF disbursement on the horizon. [Infobae]</li>
+<li><strong>Economy Records Sharpest Monthly Contraction Under Milei</strong>: Monthly activity fell sharply, compounding the challenges of servicing record debt amid a deepening recession. [Financial Times]</li>
+<li><strong>2021 Debt Negotiator Warns Debt Is Less Payable Under Milei</strong>: A former negotiator for the 2021 IMF deal argues that current policies have made the debt burden less manageable, despite initial progress. [Perfil]</li>
+</ul></section>
+<section id="fintech-innovation" class="news-section">
+<h2>Fintech & Innovation</h2>
+<h3>Key Developments</h3>
+<p>Argentina’s crypto ecosystem received a major vote of confidence as Tether led a $14M Series A round in local fintech belo, signaling growing institutional interest in stablecoin infrastructure for cross-border payments across Latin America. This investment underscores the region’s shift toward digital dollarization and blockchain-based financial services.</p>
+<h3>Top Stories</h3>
+<ul>
+<li><strong>Tether leads $14M Series A in Argentine crypto fintech belo to scale stablecoins across LatAm</strong>: The investment will help belo expand its stablecoin wallet and payment solutions, targeting unbanked populations and remittance corridors in Argentina, Brazil, and Mexico. [Google News - LatAm Fintech]</li>
+</ul></section>
+
+
+  <!-- Source Report -->
+  <section class="news-section" id="source-report">
+    <h2>Source Report</h2>
+    <table class="source-table">
+      <thead><tr><th>Source</th><th>Category</th><th>Status</th><th>Articles</th></tr></thead>
+      <tbody><tr>
+            <td>LA NACION</td>
+            <td>Macro & Policy</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>96</td>
+        </tr><tr>
+            <td>Ambito - Economia</td>
+            <td>Macro & Policy</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>99</td>
+        </tr><tr>
+            <td>Google News - BCRA</td>
+            <td>Macro & Policy</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>4</td>
+        </tr><tr>
+            <td>Ambito - Finanzas</td>
+            <td>Financial Markets</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>20</td>
+        </tr><tr>
+            <td>Infobae</td>
+            <td>Financial Markets</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>100</td>
+        </tr><tr>
+            <td>Google News - Mercados</td>
+            <td>Financial Markets</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>1</td>
+        </tr><tr>
+            <td>Google News - FMI</td>
+            <td>International Impact</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>15</td>
+        </tr><tr>
+            <td>Google News - Argentina EN</td>
+            <td>International Impact</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>2</td>
+        </tr><tr>
+            <td>Google News - Fintech AR</td>
+            <td>Fintech & Innovation</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>0</td>
+        </tr><tr>
+            <td>Google News - LatAm Fintech</td>
+            <td>Fintech & Innovation</td>
+            <td><i class="fa fa-check-circle" style="color:#10b981"></i> ok</td>
+            <td>1</td>
+        </tr></tbody>
+    </table>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    Generated on May 04, 2026 · <a href="https://github.com/yajiewang0930-prog/argentina-newsletter" target="_blank">GitHub</a>
+  </div>
+
+</div><!-- .container -->
+
+<!-- Lock Button -->
+<button id="lock-btn" title="Editor Login" onclick="toggleModal()"><i class="fa fa-lock"></i></button>
+
+<!-- Edit Bar -->
+<div id="edit-bar">
+  <span><i class="fa fa-edit"></i> <strong>Edit Mode</strong></span>
+  <button onclick="downloadWord()"><i class="fa fa-file-word-o"></i> Word</button>
+  <button onclick="downloadSourceReport()"><i class="fa fa-file-excel-o"></i> Source Report</button>
+  <button class="publish-btn" onclick="publishChanges()"><i class="fa fa-cloud-upload"></i> Publish</button>
+  <span id="publish-status" style="margin-left:auto;font-size:0.8rem;"></span>
+</div>
+
+<!-- Password Modal -->
+<div class="pw-modal" id="pw-modal">
+  <div class="dialog">
+    <h3><i class="fa fa-lock"></i> Editor Password</h3>
+    <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPassword()">
+    <div class="error" id="pw-error">Incorrect password</div>
+    <div class="btns">
+      <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
+      <button class="btn-submit" onclick="checkPassword()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var unlocked = false;
+var EDITOR_HASH = '58f7ec1878a1fef5a516886fa8d92494d936011fad765efec36215634b98aece';
+var PUBLISH_URL = 'https://argentina-newsletter-save.yajie-wang0930.workers.dev';
+
+function toggleModal() {
+  if (unlocked) { lockEditor(); return; }
+  var m = document.getElementById('pw-modal');
+  m.classList.toggle('show');
+  if (m.classList.contains('show')) {
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').style.display = 'none';
+    setTimeout(function(){ document.getElementById('pw-input').focus(); }, 100);
+  }
+}
+
+async function checkPassword() {
+  var pw = document.getElementById('pw-input').value;
+  var hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  var hashHex = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if (hashHex === EDITOR_HASH) {
+    unlockEditor();
+    document.getElementById('pw-modal').classList.remove('show');
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+  }
+}
+
+function unlockEditor() {
+  unlocked = true;
+  document.getElementById('lock-btn').classList.add('unlocked');
+  document.getElementById('lock-btn').innerHTML = '<i class="fa fa-unlock-alt"></i>';
+  document.getElementById('edit-bar').style.display = 'flex';
+  // Make news sections editable
+  document.querySelectorAll('.news-section h3, .news-section p, .news-section li').forEach(function(el) {
+    el.setAttribute('contenteditable', 'true');
+  });
+  document.body.classList.add('editable');
+}
+
+function lockEditor() {
+  unlocked = false;
+  document.getElementById('lock-btn').classList.remove('unlocked');
+  document.getElementById('lock-btn').innerHTML = '<i class="fa fa-lock"></i>';
+  document.getElementById('edit-bar').style.display = 'none';
+  document.querySelectorAll('[contenteditable="true"]').forEach(function(el) {
+    el.removeAttribute('contenteditable');
+  });
+  document.body.classList.remove('editable');
+}
+
+function getEditedHTML() {
+  // Clone the document, remove edit-related elements
+  var clone = document.documentElement.cloneNode(true);
+  // Remove edit bar
+  var bar = clone.querySelector('#edit-bar');
+  if (bar) bar.remove();
+  // Remove lock button
+  var lock = clone.querySelector('#lock-btn');
+  if (lock) lock.remove();
+  // Remove modal
+  var modal = clone.querySelector('#pw-modal');
+  if (modal) modal.remove();
+  // Remove script block (last script)
+  var scripts = clone.querySelectorAll('script');
+  scripts.forEach(function(s) { if (s.textContent.indexOf('unlocked') > -1) s.remove(); });
+  // Remove contenteditable attrs
+  clone.querySelectorAll('[contenteditable]').forEach(function(el) { el.removeAttribute('contenteditable'); });
+  clone.querySelector('.container').classList.remove('editable');
+  return '<!DOCTYPE html>\n' + clone.outerHTML;
+}
+
+async function publishChanges() {
+  var status = document.getElementById('publish-status');
+  status.textContent = 'Publishing...';
+  status.style.color = '#fbbf24';
+  try {
+    var html = getEditedHTML();
+    var resp = await fetch(PUBLISH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: document.getElementById('pw-input').value || '', html: html })
+    });
+    if (resp.ok) {
+      status.textContent = 'Published!';
+      status.style.color = '#10b981';
+    } else if (resp.status === 401) {
+      status.textContent = 'Auth failed';
+      status.style.color = '#ef4444';
+    } else {
+      status.textContent = 'Error: ' + resp.status;
+      status.style.color = '#ef4444';
+    }
+  } catch(e) {
+    status.textContent = 'Network error';
+    status.style.color = '#ef4444';
+  }
+  setTimeout(function(){ status.textContent = ''; }, 5000);
+}
+
+function downloadWord() {
+  var clone = document.documentElement.cloneNode(true);
+  var bar = clone.querySelector('#edit-bar');
+  if (bar) bar.remove();
+  var lock = clone.querySelector('#lock-btn');
+  if (lock) lock.remove();
+  var modal = clone.querySelector('#pw-modal');
+  if (modal) modal.remove();
+  var scripts = clone.querySelectorAll('script');
+  scripts.forEach(function(s) { s.remove(); });
+  clone.querySelectorAll('[contenteditable]').forEach(function(el) { el.removeAttribute('contenteditable'); });
+  var html = '<!DOCTYPE html>\n<html>\n<head><meta charset="UTF-8"><title>Argentina Biweekly Newsletter</title></head>\n' +
+    clone.querySelector('body').innerHTML + '\n</html>';
+  var blob = new Blob([html], { type: 'application/msword' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'argentina_newsletter_20260504.doc';
+  a.click();
+}
+
+function downloadSourceReport() {
+  var a = document.createElement('a');
+  a.href = 'source_status.xlsx';
+  a.download = 'source_status.xlsx';
+  a.click();
+}
+</script>
+
+</body>
+</html>
