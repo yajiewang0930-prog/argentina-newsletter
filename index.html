@@ -60,9 +60,22 @@
             font-size: 0.875rem;
             line-height: 1.7;
         }
+        .edit-mode-bar { display: none; background: #FEF3C7; border-bottom: 2px solid #F59E0B; padding: 8px 16px; position: sticky; top: 0; z-index: 50; }
+        .edit-mode-bar.active { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .pw-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
+        .pw-modal.active { display: flex; }
     </style>
 </head>
 <body>
+    <!-- Editor Mode Bar (unlocked via password) -->
+    <div id="edit-bar" class="edit-mode-bar">
+        <span class="text-sm font-semibold text-yellow-800">✏️ Edit Mode</span>
+        <div class="flex gap-2">
+            <button onclick="downloadTitlesWord()" class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50">⬇ Word</button>
+            <button onclick="publishChanges()" class="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">⬆ Publish</button>
+            <button onclick="lockEditor()" class="px-3 py-1 bg-gray-200 rounded text-sm hover:bg-gray-300">🔒 Lock</button>
+        </div>
+    </div>
     <div class="max-w-4xl mx-auto px-4 py-6">
 
         <!-- ============ HEADER ============ -->
@@ -442,7 +455,99 @@
             <p class="text-xs text-gray-300 mt-3">
                 Generated with argentina-biweekly-newsletter skill · Next update: June 14, 2026
             </p>
+            <div class="mt-4 flex justify-center gap-4">
+                <button onclick="showPasswordModal()" class="text-gray-300 hover:text-gray-500 transition-colors" title="Editor Mode">
+                    <i class="fa fa-lock"></i>
+                </button>
+            </div>
         </footer>
     </div>
+
+    <!-- Password Modal -->
+    <div id="pw-modal" class="pw-modal">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-80">
+            <h3 class="text-lg font-semibold mb-3">🔐 Editor Mode</h3>
+            <input type="password" id="pw-input" placeholder="Enter password"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <div class="flex gap-2">
+                <button onclick="checkEditorPassword()" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Unlock</button>
+                <button onclick="hidePasswordModal()" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+            </div>
+            <p id="pw-error" class="text-red-500 text-sm mt-2 hidden">Incorrect password</p>
+        </div>
+    </div>
+
+    <script>
+        var EDITOR_HASH = '58f7ec1878a1fef5a516886fa8d92494d936011fad765efec36215634b98aece';
+        var PUBLISH_URL = 'https://argentina-newsletter-save.yajie-wang0930.workers.dev';
+        var editorUnlocked = false;
+
+        function showPasswordModal() {
+            document.getElementById('pw-modal').classList.add('active');
+            document.getElementById('pw-input').focus();
+        }
+        function hidePasswordModal() {
+            document.getElementById('pw-modal').classList.remove('active');
+            document.getElementById('pw-input').value = '';
+            document.getElementById('pw-error').classList.add('hidden');
+        }
+        async function checkEditorPassword() {
+            var pw = document.getElementById('pw-input').value;
+            var hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+            var hashHex = Array.from(new Uint8Array(hashBuffer)).map(function(b) { return b.toString(16).padStart(2,'0'); }).join('');
+            if (hashHex === EDITOR_HASH) {
+                editorUnlocked = true;
+                document.getElementById('edit-bar').classList.add('active');
+                hidePasswordModal();
+            } else {
+                document.getElementById('pw-error').classList.remove('hidden');
+                document.getElementById('pw-input').value = '';
+            }
+        }
+        function lockEditor() {
+            editorUnlocked = false;
+            document.getElementById('edit-bar').classList.remove('active');
+        }
+        function downloadTitlesWord() {
+            var titles = [];
+            document.querySelectorAll('.news-card h3').forEach(function(h3) { titles.push(h3.textContent.trim()); });
+            var html = '<html><head><meta charset="UTF-8"><style>body{font-family:sans-serif;}li{margin:8px 0;}</style></head><body><h2>Argentina Biweekly Brief</h2><ul>';
+            titles.forEach(function(t) { html += '<li>' + t + '</li>'; });
+            html += '</ul></body></html>';
+            var blob = new Blob([html], {type: 'application/msword'});
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'argentina_biweekly_titles.doc';
+            a.click();
+        }
+        async function publishChanges() {
+            if (!editorUnlocked) return;
+            var pw = document.getElementById('pw-input').value;
+            var html = document.documentElement.outerHTML;
+            try {
+                var res = await fetch(PUBLISH_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({password: pw, html: html})
+                });
+                var data = await res.json();
+                if (data.ok) {
+                    alert('✅ Published. Changes will reflect in ~1 minute.');
+                } else {
+                    alert('❌ Publish failed: ' + JSON.stringify(data));
+                }
+            } catch(e) {
+                alert('❌ Network error: ' + e.message);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('pw-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') checkEditorPassword();
+            });
+        });
+        document.getElementById('pw-modal').addEventListener('click', function(e) {
+            if (e.target === this) hidePasswordModal();
+        });
+    </script>
 </body>
 </html>

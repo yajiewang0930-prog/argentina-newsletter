@@ -58,7 +58,7 @@ EDITOR_PASSWORD = "didiar"
 EDITOR_PASSWORD_HASH = "58f7ec1878a1fef5a516886fa8d92494d936011fad765efec36215634b98aece"
 
 # Cloudflare Worker URL（创建 Worker 后填入）
-PUBLISH_URL = "https://newsletter-save.YOUR_SUBDOMAIN.workers.dev"  # ← 替换为实际 Worker URL
+PUBLISH_URL = "https://argentina-newsletter-save.yajie-wang0930.workers.dev"
 
 # Claude API 配置
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
