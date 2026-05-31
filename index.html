@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Argentina Biweekly Brief — May 18–31, 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <style>
+        :root {
+            --primary: #75AADB;
+            --primary-dark: #4A8BC2;
+            --accent: #F4B43A;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #75AADB 0%, #4A8BC2 50%, #F4B43A 100%);
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .news-card {
+            border-left: 3px solid #75AADB;
+            transition: border-color 0.2s ease;
+        }
+        .news-card:hover { border-left-color: #4A8BC2; }
+        .section-icon {
+            width: 32px; height: 32px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 8px; color: white; font-size: 16px;
+        }
+        .icon-macro { background: #3B82F6; }
+        .icon-financial { background: #10B981; }
+        .icon-fintech { background: #8B5CF6; }
+        .icon-international { background: #F59E0B; }
+        .alert-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .alert-high { background: #FEE2E2; color: #991B1B; }
+        .alert-medium { background: #FEF3C7; color: #92400E; }
+        .top-story {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+        .news-body {
+            color: #475569;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto px-4 py-6">
+
+        <!-- ============ HEADER ============ -->
+        <header class="text-center mb-8">
+            <div class="header-gradient rounded-2xl p-8 text-white mb-6">
+                <div style="font-size:2.5rem" class="mb-2">🇦🇷</div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">Argentina Biweekly Brief</h1>
+                <p class="text-white/70 text-lg mt-2">May 18 – 31, 2026 · Issue #1</p>
+                <p class="text-white/50 text-sm mt-1">Generated May 31, 2026</p>
+            </div>
+        </header>
+
+        <!-- ============ TOP STORY ============ -->
+        <section class="mb-8">
+            <div class="top-story rounded-xl p-6">
+                <span class="text-yellow-400 text-xs font-bold uppercase tracking-wide">📰 Top Story</span>
+                <h2 class="text-xl font-bold mt-2 mb-2">IMF Approves $1Bn Disbursement, Warns on Credit Risk and Peso Overvaluation</h2>
+                <p class="text-white/80 text-sm leading-relaxed">
+                    The IMF Executive Board completed Argentina's second EFF review on May 21, unlocking approximately $1 billion and bringing total disbursements to $15.8 billion. While the Board endorsed the Milei administration's stabilization progress — citing declining inflation, reserve accumulation, and fiscal discipline — the accompanying staff report flagged significant concerns: the peso is estimated to be overvalued by 9.5–22%, non-bank credit delinquencies have surged past 30%, and political risks tied to the 2027 electoral calendar could undermine reform momentum. The report also urged stronger oversight of fintech lenders and virtual wallets.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ KEY METRICS ============ -->
+        <section class="mb-10">
+            <h2 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                📊 Key Indicators <span class="text-xs font-normal text-gray-400">(as of May 31, 2026)</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                <div class="metric-card bg-white rounded-xl shadow-sm p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Monthly Inflation</p>
+                    <p class="text-2xl font-bold text-gray-800 mb-1">~2.1%</p>
+                    <p class="text-xs text-green-500">↓ Easing (Apr: 2.6%)</p>
+                    <p class="text-xs text-gray-300 mt-1">May est. · Source: INDEC / Consultants</p>
+                </div>
+
+                <div class="metric-card bg-white rounded-xl shadow-sm p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Reference Rate (TAMAR)</p>
+                    <p class="text-2xl font-bold text-gray-800 mb-1">23.1%</p>
+                    <p class="text-xs text-green-500">↓ Declining</p>
+                    <p class="text-xs text-gray-300 mt-1">TNA · ~1.9% monthly effective</p>
+                    <p class="text-xs text-gray-300">Source: BCRA REM Apr-26</p>
+                </div>
+
+                <div class="metric-card bg-white rounded-xl shadow-sm p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">FX Spread (Blue vs Official)</p>
+                    <p class="text-2xl font-bold text-gray-800 mb-1">~2%</p>
+                    <p class="text-xs text-gray-400">→ Tight</p>
+                    <p class="text-xs text-gray-300 mt-1">Blue $1,430 · Official $1,430</p>
+                    <p class="text-xs text-gray-300">Source: Ámbito / DolarHoy</p>
+                </div>
+
+                <div class="metric-card bg-white rounded-xl shadow-sm p-4 text-center">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Consumer Confidence (ICC)</p>
+                    <p class="text-2xl font-bold text-gray-800 mb-1">40.14</p>
+                    <p class="text-xs text-green-500">↑ +1.26% MoM</p>
+                    <p class="text-xs text-gray-300 mt-1">Historical avg: 44.65</p>
+                    <p class="text-xs text-gray-300">Source: UTDT</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 1. MACRO & POLICY ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-macro">📈</span> Macro & Policy
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4" style="border-left-color:#3B82F6">
+                <p class="text-gray-600 text-sm mb-4">
+                    Argentina's disinflation and financial stabilization narrative held firm this cycle. May inflation is estimated at 2.0–2.2%, down from 2.6% in April. Sovereign risk broke below 500bp for the first time under Milei, and the BCRA continued aggressive FX purchases. However, weak domestic consumption and a record surge in household credit delinquencies are tempering optimism heading into H2 2026.
+                </p>
+                <ul class="space-y-4">
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">May Inflation Estimated at 2.0–2.2%, Marking Second Consecutive Monthly Decline</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            Private consultancies project May CPI between 2.0% and 2.5%, with a consensus around 2.1–2.2%, down from 2.6% in April and well below the 3.4% peak in March. EcoGo estimates 2.2%, Libertad y Progreso 2.1%, and Econviews 2.0%. Food prices — a key driver in prior months — decelerated sharply in the fourth week to just 0.1% week-on-week, according to LCG. However, transport and utility tariffs continue to exert upward pressure, with train fares up 10.4% and bus fares up 3.9% in the AMBA region. Economy Minister Luis Caputo stated that May inflation "will be lower than April" and reaffirmed the government's 20% annual inflation target for the coming twelve months. INDEC will release the official May CPI on June 11. The year-on-year rate stands at approximately 32–33%.
+                        </p>
+                        <span class="text-xs text-gray-400">El Economista · Conclusión · Diario de Cuyo · ADNSUR</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Sovereign Risk Drops Below 500bp — Lowest Since 2018</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            Argentina's EMBI+ spread, as measured by JP Morgan, closed the period at approximately 490–500 basis points, the lowest level recorded since 2018 and a milestone for the Milei administration. Bank of America maintained its "Overweight" recommendation on Argentine sovereign bonds, citing improving macro fundamentals and the government's commitment to fiscal discipline. The S&P Merval equity index surged 11.7% in peso terms and 10.4% in dollar terms during May, led by banking stocks. Bond prices edged up 0.2% in the final session. Analysts caution that the rally is partly driven by short-term carry trade dynamics and that sustainability hinges on the BCRA's ability to continue accumulating reserves through H2 2026, when agricultural FX liquidation seasonally declines.
+                        </p>
+                        <span class="text-xs text-gray-400">El Economista · Forbes Argentina · BAENegocios · Página/12</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">BCRA FX Purchases Hit $9.6Bn YTD; Gross Reserves Reach $48.2Bn</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            The Central Bank purchased over $2.5 billion in May alone, bringing year-to-date FX accumulation to approximately $9.6 billion — approaching the $10 billion annual target set under the IMF program. Gross international reserves closed the month at $48,191 million. The strong buying pace has been fueled by robust agricultural export settlements and corporate dollar-denominated debt issuance. The BCRA's latest Market Expectations Survey (REM, April 2026) projects the official exchange rate at $1,676 per dollar by December 2026, implying 15.8% annual depreciation. The monetary authority, led by Santiago Bausili, continues to prioritize reserve accumulation as its primary nominal anchor, sterilizing peso issuance through Treasury bill absorption. The BCRA has retired $1.57 trillion from circulation via Treasury operations.
+                        </p>
+                        <span class="text-xs text-gray-400">BCRA · BAENegocios · Página/12 · BIS</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">"Super RIGI" Bill Submitted to Congress, Targeting AI, Chips, and Hyperscale Data Centers</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            On May 23, the Executive Branch submitted the "Super RIGI" bill to Congress, extending Argentina's flagship investment incentive framework to strategic technology sectors. The bill sets a minimum investment threshold of $1 billion and offers a reduced corporate income tax rate of 15%, a 10% flat payroll tax, accelerated FX access (20/40/100% over three years), and 30-year legal, tax, and customs stability with international arbitration. Targeted sectors include artificial intelligence infrastructure, semiconductor manufacturing, and hyperscale data centers. The bill supplements the existing RIGI regime, under which 10+ projects totaling over $254 billion in commitments have already been approved, including YPF's $25 billion and Chevron's $10 billion Vaca Muerta investments. The RIGI adhesion window was recently extended to July 2027.
+                        </p>
+                        <span class="text-xs text-gray-400">BNamericas · Cadena 3 · La Nación · Zhong Lun Law Firm</span>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ 2. FINANCIAL & CREDIT ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-financial">🏦</span> Financial & Credit
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4" style="border-left-color:#10B981">
+                <p class="text-gray-600 text-sm mb-4">
+                    Argentina's credit market is flashing two contradictory signals. Aggregate private-sector credit inched up 0.6% in real terms in April, reversing a two-month contraction, yet credit penetration remains anemic at just 9.3% of GDP — far below the 40–60% Latin American average. Meanwhile, household non-performing loan ratios have surged to their highest levels in nearly two decades, driven by a toxic combination of real wage erosion, rapid fintech credit expansion, and deregulatory policies under DNU 70/2023.
+                </p>
+                <ul class="space-y-4">
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Household NPL Ratio Hits 11.5% — 5.3 Million Argentines in Default</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            Argentina's household non-performing loan ratio reached 11.5% in March 2026, more than tripling from 3.3% in March 2025 and hitting its highest level in nearly two decades, according to BCRA data. Personal loan delinquencies stand at 14.2%, credit card defaults at 11.7%, and auto loan delinquencies at 6.9%. A staggering 5.3 million Argentines — 26.7% of all borrowers — now have at least one loan in irregular status. The surge is attributed to a 12% decline in real disposable income versus pre-pandemic levels, with many households having used credit to cover basic living expenses. The average overdue debt is approximately ARS 5.9 million (~$4,100), predominantly from supermarket, pharmacy, and essential services consumption. Corporate NPLs remain comparatively contained at 3.1%.
+                        </p>
+                        <span class="text-xs text-gray-400">Newsweek · Primera Edición · MDZol · Cadena 3</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Banco Nación Launches Emergency Refinancing Program: 72-Month Terms at 65% TNA</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            In response to the escalating delinquency crisis, Banco Nación — Argentina's largest public bank — rolled out an emergency debt consolidation loan program offering up to 72-month repayment terms at a nominal annual rate of 65% (CFT of 114%). Banco Provincia launched a parallel program with similarly extended tenors and differentiated rates. The programs target over-indebted individuals seeking to consolidate multiple high-interest obligations into a single installment. However, economists warn that at a CFT of 114% and with inflation trending toward 2% monthly, the real cost of these loans remains steep for financially distressed households. The BCRA noted that the banking system retains high solvency — with capitalization at 30.3% of risk-weighted assets — and adequate provisioning coverage, though lenders are tightening origination standards.
+                        </p>
+                        <span class="text-xs text-gray-400">El Nueve · Diario de Cuyo · Newsweek · BCRA</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Private Credit Edges Up 0.6% in April, but Credit-to-GDP Ratio Stuck at 9.3%</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            Private-sector credit in pesos grew 0.6% in real terms in April, according to the BCRA's latest Banking Report, reversing two consecutive months of contraction. UVA-denominated mortgage loans stood out with 100% year-on-year cumulative growth, albeit from a very low base. Credit card lending led the expansion among consumer segments. Despite the marginal uptick, total credit in pesos represents only 9.3% of GDP (12.3% including foreign-currency loans), a fraction of the 40–60% average across Latin America. First Capital Group reported that peso loans actually declined 0.7% in real terms in April on their measure, marking four consecutive months of contraction. The credit recovery remains fragile and uneven: while UVA mortgages benefit from indexed inflation adjustments, unsecured personal lending is being constrained by banks' tightening risk appetite in the face of soaring delinquencies.
+                        </p>
+                        <span class="text-xs text-gray-400">BCRA · MDZol · Economía Simple · Santander</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Term Deposit Rates: Big Banks Offer 15–19%, Small Banks Reach 24%</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            Term deposit rates across Argentine banks reflect a steep tiering between large and small institutions. Banco Nación offers 19% TNA, Banco Provincia 19.5%, Galicia 18.25%, BBVA 18.75%, and Santander just 15%. By contrast, smaller banks catering to retail depositors — including Banco Masventas, Meridian, Crédito Regional, and Voii — offer rates up to 24% TNA, providing a meaningful premium for savers willing to forgo the perceived safety of larger institutions. The shortest-dated Lecap (Treasury bill) closed at 1.99% effective monthly in the secondary market, still negative in real terms against May's estimated 2.1% inflation. This persistent negative real rate environment reflects the BCRA's strategy of keeping monetary conditions accommodative to support the disinflation process while relying on FX purchases as the primary monetary expansion channel.
+                        </p>
+                        <span class="text-xs text-gray-400">La Nación · BCRA</span>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ 3. FINTECH ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-fintech">💳</span> Fintech
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4" style="border-left-color:#8B5CF6">
+                <p class="text-gray-600 text-sm mb-4">
+                    Argentina's fintech sector faces a defining moment. The IMF's staff report explicitly called out non-bank credit — now 15% of total banking credit — as a systemic risk, with delinquency rates exceeding 30% industry-wide and reaching 50% at some lenders. Naranja X dominates with 37.7% market share, followed by Mercado Pago at 14.8%. Meanwhile, Ualá leads the digital wallet rate war at 26% TNA, and Congress is advancing legislation that would require wallets to block payments to illegal gambling sites.
+                </p>
+                <ul class="space-y-4">
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">IMF Flags Fintech Systemic Risk, Urges Stricter Virtual Wallet Supervision</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            The IMF's May 2026 staff report devoted unprecedented attention to Argentina's non-bank credit sector, explicitly urging the government to strengthen supervision of fintech lenders and virtual wallets. Non-bank credit now accounts for 15% of total banking credit, with overall delinquency rates exceeding 30% and reaching as high as 50% at some institutions. The share of "irrecoverable" loans in the non-bank segment surged from 2.6% in March 2025 to 10.8% in March 2026. The IMF linked the deterioration to the deregulatory DNU 70/2023, which removed interest rate caps, eliminated the requirement to disclose the total financial cost (CFT) to borrowers, and weakened consumer protections. The report recommends implementing consolidated supervision across banks and non-banks, imposing prudential limits on fintech lending, and mandating credit bureau reporting for all digital lenders.
+                        </p>
+                        <span class="text-xs text-gray-400">Crónica · Ámbito · Noticias Argentinas · Conclusión</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Mercado Pago NPL Hits 31.5%; Naranja X Files 36 Lawsuits in a Single Day</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            Mercado Pago's delinquency rate climbed from 30.7% to 31.5% between March and April 2026, while Naranja X — which holds 37.7% of Argentina's non-bank credit market — filed 36 lawsuits in a single day at the Buenos Aires Commercial Court seeking wage garnishments. The average debt in these cases is ARS 5.9 million (~$4,100), with consumption patterns concentrated in supermarkets, pharmacies, and streaming subscriptions — indicating that credit was used as a household survival tool rather than for discretionary spending. Consumer advocacy groups and legal experts point to DNU 70/2023 as the primary driver: by removing usury caps and CFT disclosure obligations, the decree enabled fintech lenders to charge effective annual rates exceeding 300% while borrowers lacked transparency on total repayment costs. The wave of lawsuits is straining an already backlogged judicial system.
+                        </p>
+                        <span class="text-xs text-gray-400">TiempoAR · El Ancasti · Los Andes · Diario de Cuyo</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Digital Wallet Rate War: Ualá Leads at 26% TNA as Overall Rates Decline</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            Ualá raised its remunerated account rate to 26% TNA in late May, seizing the top spot in Argentina's competitive digital wallet savings market. The ranking as of May 30: Ualá 26%, Cocos (money market fund) 23.14%, IOL Cash 22.42%, Prex Argentina 19.03%, Personal Pay 18.27%, Mercado Pago (money market fund) 18.19%, Naranja X 18%, and Lemon Cash 17.08%. The broader decline from January levels — when Mercado Pago offered 28.71% and Cocos 30.04% — reflects the BCRA's accommodative monetary stance and the ongoing disinflation process. Ualá's aggressive rate suggests a customer acquisition strategy aimed at capturing deposits in a market where traditional bank term deposits offer 15–19% at major institutions. Savers are increasingly using digital wallets as primary transaction and savings vehicles despite the rates trending lower.
+                        </p>
+                        <span class="text-xs text-gray-400">El Cronista · MendoVoz · DerechoDiario</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">Regulatory Tightening: Gambling Payment Blocks and Digital Salary Ban</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            Two regulatory developments are reshaping Argentina's digital wallet landscape. First, the government submitted a Gambling Law bill requiring Mercado Pago, Ualá, Naranja X, and other wallets to block transfers to unlicensed online gambling sites, with non-compliance punishable by up to four years in prison. This follows growing concern over gambling addiction facilitated by seamless in-app payment flows. Second, Congress earlier removed a provision from the labor reform package that would have allowed workers to receive salaries directly into digital wallets (via CVU), succumbing to banking lobby pressure. This means 75% of transfers already use digital wallet accounts, yet workers cannot legally designate them for payroll deposits. The ban was enacted despite polling showing nine out of ten Argentines favored having the option.
+                        </p>
+                        <span class="text-xs text-gray-400">BeInCrypto · iProUP</span>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ 4. INTERNATIONAL IMPACT ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-international">🌐</span> International Impact
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4" style="border-left-color:#F59E0B">
+                <p class="text-gray-600 text-sm mb-4">
+                    The IMF Board formally approved Argentina's second EFF review on May 21, unlocking $1 billion in fresh disbursement. However, tensions persist: the Fund estimates the peso is overvalued by 9.5–22%, a view the government rejects. On the investment front, RIGI commitments accelerated — YPF and Chevron pledged $35 billion for Vaca Muerta, TGS announced a $3 billion NGL project, and mining exports are projected to grow 49% in 2026 to $9 billion. The EU-Mercosur trade deal is expected to catalyze a new wave of European investment in Argentine production facilities.
+                </p>
+                <ul class="space-y-4">
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">IMF Board Approves Second EFF Review, Disburses $1 Billion</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            The IMF Executive Board completed Argentina's second review under the 48-month, $20 billion Extended Fund Facility on May 21, 2026, triggering an immediate disbursement of approximately $1 billion. Total disbursements under the current arrangement now stand at $15.8 billion. Key program conditions include a primary fiscal surplus of 1.4% of GDP in 2026, net international reserve accumulation of at least $8 billion, and BCRA FX purchases of at least $10 billion for the year. The Board also concluded the 2026 Article IV consultation. However, the Fund revised its 2026 GDP growth forecast downward by 0.5 percentage points to 3.5%, citing global uncertainty and the Middle East conflict. Poverty fell to 28.2% in H2 2025 — the lowest since 2018 — reflecting the stabilization's social dividend despite lingering recessionary effects.
+                        </p>
+                        <span class="text-xs text-gray-400">IMF.org · Reuters · Investing.com · BA Times</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">IMF vs. Milei: Peso Overvaluation Dispute Intensifies</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            A growing rift has emerged between the IMF's technical staff and the Argentine government over exchange rate policy. The IMF's staff report estimates the peso is overvalued by 9.5% to 22%, suggesting the equilibrium exchange rate should be above $1,740 per dollar — significantly above the current $1,430. The Fund warned against using exchange rate appreciation as the primary anti-inflation anchor and pushed for faster widening of the currency band. Economy Minister Caputo categorically rejected the overvaluation thesis, stating there is "no exchange rate lag" and projecting confidence that the market's expectations are anchored. The IMF also flagged concerns over the pace of energy subsidy reduction, the need for comprehensive tax reform to raise up to 3.3% of GDP in additional revenue, and political risks surrounding the 2027 election cycle. The US Treasury's strong political backing for Milei reportedly clashed with the Fund's technical caution.
+                        </p>
+                        <span class="text-xs text-gray-400">El Economista · Vía País · BA Times · IMF.org</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">RIGI Investment Commitments Accelerate: $254Bn+ Across 10+ Approved Projects</h3>
+                            <span class="alert-badge alert-high flex-shrink-0">high</span>
+                        </div>
+                        <p class="news-body">
+                            Argentina's flagship RIGI incentive regime continued to attract major commitments in May. YPF pledged $25 billion and Chevron $10 billion for Vaca Muerta shale development. TGS presented its $3 billion NGL project, expected to generate $1.2 billion annually in exports and create 19,000 direct and indirect jobs. Pharmaceutical chamber CAEME announced $8 billion in clinical research investments. To date, 10+ projects have been approved with total commitments exceeding $254 billion. Argentina rose from 12th to 7th in global mining exploration rankings, with mining exports projected to grow 49% in 2026 to $9 billion. Separately, Milei met with the owner of the world's largest topaz gemstone to discuss a large-scale mining investment. Critically, some analysts at La Nación question whether the RIGI constitutes an interventionist industrial policy inconsistent with the government's free-market rhetoric.
+                        </p>
+                        <span class="text-xs text-gray-400">BNamericas · Energía y Negocios · El Fuerte Diario · La Nación</span>
+                    </li>
+
+                    <li class="news-card bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-semibold text-gray-800 text-sm">EU-Mercosur Deal and 49% Mining Export Growth Set Stage for 2027</h3>
+                            <span class="alert-badge alert-medium flex-shrink-0">medium</span>
+                        </div>
+                        <p class="news-body">
+                            The EU-Mercosur trade agreement is expected to catalyze a new wave of European investment in Argentine production facilities, with particular interest from Spanish and Dutch firms seeking to establish manufacturing operations within the Mercosur bloc. Argentina's mining sector is projected to see exports grow 49% year-on-year in 2026, reaching $9 billion, driven by lithium, copper, and elevated global metals prices. The RIGI adhesion deadline has been extended to July 2027, providing a window for international investors — including Chinese firms eyeing lithium and Vaca Muerta opportunities — to structure large-scale projects. Argentine SMEs have also secured new export quotas for honey, eggs, and rice under preferential trade agreements. The convergence of trade liberalization, investment incentives, and commodity demand positions Argentina's export sector for its strongest performance in over a decade, though execution risks tied to capital controls and political uncertainty remain.
+                        </p>
+                        <span class="text-xs text-gray-400">Cadena 3 · Zhong Lun Law Firm · BNamericas · Energía y Negocios</span>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ EXECUTIVE SUMMARY ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4">📋 Executive Summary</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-green-50 rounded-xl p-5 border border-green-200">
+                    <h3 class="font-bold text-green-800 mb-3 flex items-center gap-2">
+                        <span>🟢</span> Tailwinds
+                    </h3>
+                    <ul class="space-y-2 text-sm text-green-700">
+                        <li class="flex gap-2"><span class="text-green-400">✓</span> Inflation easing steadily: ~2.1% in May (Apr: 2.6%), annual target 20%</li>
+                        <li class="flex gap-2"><span class="text-green-400">✓</span> Sovereign risk below 500bp — lowest since 2018; bonds rated Overweight</li>
+                        <li class="flex gap-2"><span class="text-green-400">✓</span> BCRA reserves at $48.2Bn after $9.6Bn in YTD FX purchases</li>
+                        <li class="flex gap-2"><span class="text-green-400">✓</span> RIGI commitments surpass $254Bn; mining exports projected +49% in 2026</li>
+                        <li class="flex gap-2"><span class="text-green-400">✓</span> IMF second review approved; $1Bn disbursed; poverty at lowest since 2018</li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-5 border border-red-200">
+                    <h3 class="font-bold text-red-800 mb-3 flex items-center gap-2">
+                        <span>🔴</span> Headwinds
+                    </h3>
+                    <ul class="space-y-2 text-sm text-red-700">
+                        <li class="flex gap-2"><span class="text-red-400">✗</span> Household NPL ratio at 11.5% — near two-decade high; personal loans 14.2%</li>
+                        <li class="flex gap-2"><span class="text-red-400">✗</span> Fintech delinquency >30%; IMF urges urgent regulatory tightening</li>
+                        <li class="flex gap-2"><span class="text-red-400">✗</span> IMF estimates 9.5–22% peso overvaluation; policy tension with government</li>
+                        <li class="flex gap-2"><span class="text-red-400">✗</span> Consumer confidence at 40.14 — below historical average of 44.65</li>
+                        <li class="flex gap-2"><span class="text-red-400">✗</span> Credit penetration just 9.3% of GDP; H2 FX inflows face seasonal decline</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ DATA TABLE ============ -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold mb-4">📊 Key Data at a Glance</h2>
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="text-left p-3 font-semibold text-gray-600">Indicator</th>
+                            <th class="text-right p-3 font-semibold text-gray-600">Value</th>
+                            <th class="text-right p-3 font-semibold text-gray-600">Trend</th>
+                            <th class="text-right p-3 font-semibold text-gray-600">Source</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr><td class="p-3">Monthly Inflation (May est.)</td><td class="text-right p-3 font-mono">~2.1%</td><td class="text-right p-3 text-green-500">↓ vs Apr 2.6%</td><td class="text-right p-3 text-gray-400">INDEC / Consultants</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">Annual Inflation (YoY)</td><td class="text-right p-3 font-mono">~32–33%</td><td class="text-right p-3 text-green-500">↓ Declining</td><td class="text-right p-3 text-gray-400">INDEC</td></tr>
+                        <tr><td class="p-3">Reference Rate (TAMAR)</td><td class="text-right p-3 font-mono">23.1% TNA</td><td class="text-right p-3 text-green-500">↓ -2.9pp MoM</td><td class="text-right p-3 text-gray-400">BCRA REM</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">Official FX Rate</td><td class="text-right p-3 font-mono">ARS 1,430/USD</td><td class="text-right p-3 text-gray-400">→ Managed float</td><td class="text-right p-3 text-gray-400">BNA</td></tr>
+                        <tr><td class="p-3">Blue FX Rate</td><td class="text-right p-3 font-mono">ARS 1,430</td><td class="text-right p-3 text-gray-400">→ Converging</td><td class="text-right p-3 text-gray-400">Ámbito</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">FX Spread (Blue vs Official)</td><td class="text-right p-3 font-mono">~2%</td><td class="text-right p-3 text-green-500">↓ Historic low</td><td class="text-right p-3 text-gray-400">DolarHoy</td></tr>
+                        <tr><td class="p-3">Sovereign Risk (EMBI+)</td><td class="text-right p-3 font-mono">490–500 bp</td><td class="text-right p-3 text-green-500">↓ Lowest since 2018</td><td class="text-right p-3 text-gray-400">JP Morgan</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">Gross Intl. Reserves</td><td class="text-right p-3 font-mono">$48,191M</td><td class="text-right p-3 text-green-500">↑ +$9,600M YTD</td><td class="text-right p-3 text-gray-400">BCRA</td></tr>
+                        <tr><td class="p-3">Consumer Confidence (ICC)</td><td class="text-right p-3 font-mono">40.14</td><td class="text-right p-3 text-green-500">↑ +1.26% MoM</td><td class="text-right p-3 text-gray-400">UTDT</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">Household NPL Ratio</td><td class="text-right p-3 font-mono text-red-500">11.5%</td><td class="text-right p-3 text-red-500">↑ 3.3% → 11.5% YoY</td><td class="text-right p-3 text-gray-400">BCRA</td></tr>
+                        <tr><td class="p-3">Personal Loan NPL Ratio</td><td class="text-right p-3 font-mono text-red-500">14.2%</td><td class="text-right p-3 text-red-500">↑ Near-record</td><td class="text-right p-3 text-gray-400">BCRA</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">Fintech Credit NPL Ratio</td><td class="text-right p-3 font-mono text-red-500">>30%</td><td class="text-right p-3 text-red-500">↑ Up to 50% at some</td><td class="text-right p-3 text-gray-400">IMF Staff Report</td></tr>
+                        <tr><td class="p-3">Credit-to-GDP (Peso)</td><td class="text-right p-3 font-mono">9.3%</td><td class="text-right p-3 text-gray-400">→ Well below LatAm avg</td><td class="text-right p-3 text-gray-400">BCRA</td></tr>
+                        <tr class="bg-gray-50"><td class="p-3">RIGI Investment Commitments</td><td class="text-right p-3 font-mono">>$254Bn</td><td class="text-right p-3 text-green-500">↑ 10+ projects approved</td><td class="text-right p-3 text-gray-400">Ministry of Economy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============ FOOTER ============ -->
+        <footer class="border-t border-gray-200 pt-6 mt-12 text-center text-sm text-gray-400">
+            <p class="mb-1 font-semibold text-gray-500">🇦🇷 Argentina Biweekly Brief · Issue #1</p>
+            <p class="mb-1">May 18 – 31, 2026</p>
+            <p class="mb-2 text-xs">
+                Data sources: INDEC, BCRA, CNV, IMF, UTDT, El Economista, La Nación, Infobae, Página/12,
+                Ámbito Financiero, El Cronista, Bloomberg Línea, BNamericas, Reuters, Forbes Argentina,
+                CoinTelegraph, MercoPress
+            </p>
+            <p class="text-xs text-gray-300">
+                This report is an automated intelligence briefing for internal reference. All data points are marked as of their respective dates. Views expressed belong to original sources.
+            </p>
+            <p class="text-xs text-gray-300 mt-3">
+                Generated with argentina-biweekly-newsletter skill · Next update: June 14, 2026
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

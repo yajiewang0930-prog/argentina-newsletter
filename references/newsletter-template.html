@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{NEWSLETTER_TITLE}} | {{DATE_RANGE}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <style>
+        :root {
+            --primary: #75AADB;
+            --primary-dark: #4A8BC2;
+            --accent: #F4B43A;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .flag-emoji { font-size: 2rem; }
+        .header-gradient {
+            background: linear-gradient(135deg, #75AADB 0%, #4A8BC2 50%, #F4B43A 100%);
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .news-card {
+            border-left: 3px solid var(--primary);
+            transition: border-color 0.2s ease;
+        }
+        .news-card:hover { border-left-color: var(--primary-dark); }
+        .category-macro { border-left-color: #3B82F6; }
+        .category-financial { border-left-color: #10B981; }
+        .category-fintech { border-left-color: #8B5CF6; }
+        .category-international { border-left-color: #F59E0B; }
+        .section-icon { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; color: white; font-size: 14px; }
+        .icon-macro { background: #3B82F6; }
+        .icon-financial { background: #10B981; }
+        .icon-fintech { background: #8B5CF6; }
+        .icon-international { background: #F59E0B; }
+        .edit-mode-bar { display: none; background: #fef3c7; border-bottom: 2px solid #f59e0b; padding: 8px 16px; position: sticky; top: 0; z-index: 50; }
+        .edit-mode-bar.active { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .pw-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
+        .pw-modal.active { display: flex; }
+    </style>
+</head>
+<body>
+    <!-- 编辑模式工具栏（密码解锁后显示） -->
+    <div id="edit-bar" class="edit-mode-bar">
+        <span class="text-sm font-semibold text-yellow-800">✏️ Modo Edición</span>
+        <div class="flex gap-2">
+            <button onclick="downloadTitlesWord()" class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50">
+                ⬇ Word
+            </button>
+            <button onclick="downloadSourceReport()" class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50">
+                ⬇ Informe de Fuentes
+            </button>
+            <button onclick="publishChanges()" class="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">
+                ⬆ Publicar
+            </button>
+            <button onclick="lockEditor()" class="px-3 py-1 bg-gray-200 rounded text-sm hover:bg-gray-300">
+                🔒 Bloquear
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-6">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <div class="header-gradient rounded-2xl p-8 text-white mb-6">
+                <div class="flag-emoji mb-2">🇦🇷</div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">{{NEWSLETTER_TITLE}}</h1>
+                <p class="text-white/80 text-lg">{{DATE_RANGE}} · Edición #{{ISSUE_NUMBER}}</p>
+                <p class="text-white/60 text-sm mt-2">Generado el {{GENERATION_DATE}}</p>
+            </div>
+        </header>
+
+        <!-- 关键数据面板 -->
+        <section class="mb-10">
+            <h2 class="text-lg font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                📊 Indicadores Clave <span class="text-xs font-normal">(as of {{DATA_AS_OF}})</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {{METRIC_CARDS}}
+            </div>
+        </section>
+
+        <!-- 宏观经济 -->
+        <section class="mb-10" id="section-macro">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-macro">📈</span> Macro y Política
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 category-macro">
+                <p class="text-gray-600 text-sm mb-3">{{MACRO_SUMMARY}}</p>
+                <ul class="space-y-3">
+                    {{MACRO_NEWS_ITEMS}}
+                </ul>
+            </div>
+        </section>
+
+        <!-- 金融与信贷 -->
+        <section class="mb-10" id="section-financial">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-financial">🏦</span> Finanzas y Crédito
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 category-financial">
+                <p class="text-gray-600 text-sm mb-3">{{FINANCIAL_SUMMARY}}</p>
+                <ul class="space-y-3">
+                    {{FINANCIAL_NEWS_ITEMS}}
+                </ul>
+            </div>
+        </section>
+
+        <!-- 金融科技 -->
+        <section class="mb-10" id="section-fintech">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-fintech">💳</span> Fintech
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 category-fintech">
+                <p class="text-gray-600 text-sm mb-3">{{FINTECH_SUMMARY}}</p>
+                <ul class="space-y-3">
+                    {{FINTECH_NEWS_ITEMS}}
+                </ul>
+            </div>
+        </section>
+
+        <!-- 国际影响 -->
+        <section class="mb-10" id="section-international">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span class="section-icon icon-international">🌐</span> Impacto Internacional
+            </h2>
+            <div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 category-international">
+                <p class="text-gray-600 text-sm mb-3">{{INTERNATIONAL_SUMMARY}}</p>
+                <ul class="space-y-3">
+                    {{INTERNATIONAL_NEWS_ITEMS}}
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 pt-6 mt-12 text-center text-sm text-gray-400">
+            <p class="mb-1">{{NEWSLETTER_TITLE}} · {{DATE_RANGE}}</p>
+            <p class="mb-1">
+                Fuentes: INDEC, BCRA, La Nación, Infobae, Página/12, Ámbito Financiero, El Cronista, IMF, Bloomberg Línea, CoinTelegraph en Español, MercoPress
+            </p>
+            <p>
+                Este informe es una recopilación automatizada con fines informativos. Las opiniones expresadas pertenecen a sus respectivos autores.
+            </p>
+            <div class="mt-4 flex justify-center gap-4">
+                <button onclick="showPasswordModal()" class="text-gray-300 hover:text-gray-500 transition-colors" title="Modo Editor">
+                    <i class="fa fa-lock"></i>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 密码弹窗 -->
+    <div id="pw-modal" class="pw-modal">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-80">
+            <h3 class="text-lg font-semibold mb-3">🔐 Modo Editor</h3>
+            <input type="password" id="pw-input" placeholder="Ingresar contraseña"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <div class="flex gap-2">
+                <button onclick="checkEditorPassword()" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Desbloquear
+                </button>
+                <button onclick="hidePasswordModal()" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    Cancelar
+                </button>
+            </div>
+            <p id="pw-error" class="text-red-500 text-sm mt-2 hidden">Contraseña incorrecta</p>
+        </div>
+    </div>
+
+    <script>
+        // === 配置（运行脚本时注入） ===
+        var EDITOR_HASH = '{{EDITOR_HASH}}';
+        var PUBLISH_URL = '{{PUBLISH_URL}}';
+        var SOURCE_REPORT_URL = 'source_status.xlsx';
+        var editorUnlocked = false;
+
+        // === 密码弹窗 ===
+        function showPasswordModal() {
+            document.getElementById('pw-modal').classList.add('active');
+            document.getElementById('pw-input').focus();
+        }
+        function hidePasswordModal() {
+            document.getElementById('pw-modal').classList.remove('active');
+            document.getElementById('pw-input').value = '';
+            document.getElementById('pw-error').classList.add('hidden');
+        }
+
+        async function checkEditorPassword() {
+            var pw = document.getElementById('pw-input').value;
+            var hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+            var hashHex = Array.from(new Uint8Array(hashBuffer)).map(function(b) { return b.toString(16).padStart(2,'0'); }).join('');
+            if (hashHex === EDITOR_HASH) {
+                editorUnlocked = true;
+                document.getElementById('edit-bar').classList.add('active');
+                document.querySelectorAll('[contenteditable]').forEach(function(el) { el.setAttribute('contenteditable', 'true'); });
+                hidePasswordModal();
+            } else {
+                document.getElementById('pw-error').classList.remove('hidden');
+                document.getElementById('pw-input').value = '';
+            }
+        }
+
+        function lockEditor() {
+            editorUnlocked = false;
+            document.getElementById('edit-bar').classList.remove('active');
+            document.querySelectorAll('[contenteditable]').forEach(function(el) { el.setAttribute('contenteditable', 'false'); });
+        }
+
+        function downloadTitlesWord() {
+            var titles = [];
+            document.querySelectorAll('.news-card h3').forEach(function(h3) { titles.push(h3.textContent.trim()); });
+            var html = '<html><head><meta charset="UTF-8"><style>body{font-family:sans-serif;}li{margin:8px 0;}</style></head><body><h2>{{NEWSLETTER_TITLE}}</h2><ul>';
+            titles.forEach(function(t) { html += '<li>' + t + '</li>'; });
+            html += '</ul></body></html>';
+            var blob = new Blob([html], {type: 'application/msword'});
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = '{{NEWSLETTER_SLUG}}_titulos.doc';
+            a.click();
+        }
+
+        function downloadSourceReport() {
+            window.open(SOURCE_REPORT_URL, '_blank');
+        }
+
+        async function publishChanges() {
+            if (!editorUnlocked) return;
+            var html = document.documentElement.outerHTML;
+            try {
+                var res = await fetch(PUBLISH_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({password: document.getElementById('pw-input').value, html: html})
+                });
+                var data = await res.json();
+                if (data.ok) {
+                    alert('✅ Publicado exitosamente. Los cambios se reflejarán en ~1 minuto.');
+                } else {
+                    var text = await res.text();
+                    alert('❌ Error al publicar: ' + text);
+                }
+            } catch(e) {
+                alert('❌ Error de red: ' + e.message);
+            }
+        }
+
+        // 回车提交密码
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('pw-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') checkEditorPassword();
+            });
+        });
+
+        // 点击弹窗遮罩关闭
+        document.getElementById('pw-modal').addEventListener('click', function(e) {
+            if (e.target === this) hidePasswordModal();
+        });
+    </script>
+</body>
+</html>
